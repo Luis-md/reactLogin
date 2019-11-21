@@ -25,18 +25,22 @@ const LoginForm = (props) => {
   const classes = useStyles();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("")
-  
 
   const handleSubmit = (e) => {
       e.preventDefault();
-      validator.isEmail(email) ? localStorage.setItem('user', email) : alert("E-mail inválido"); 
-      password === "" ? alert("Digite sua senha") : console.log(password) 
-      password !== "" && validator.isEmail(email) ? props.history.push("/home") : null  
+      
+      if (validator.isEmail(email) === false) {
+        alert("E-mail inválido")
+      } else if (password === ""){
+        alert("Digite sua senha")
+      } else {
+        props.history.push("/home", {email})
+      }
+  
     }   
-
-
   
   return (
+    
     <form className={classes.container} onSubmit={handleSubmit} autoComplete="off">
       <div>
         
